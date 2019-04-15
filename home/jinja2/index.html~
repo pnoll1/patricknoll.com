@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="Patrick Noll's skills showcase">
+    <meta name="keywords" content="OpenStreetMap, osm, software, mechanical, engineer">
+    <meta name="author" content="Patrick Noll" >
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Patrick Noll</title>
+    <!-- Bootstrap core CSS -->
+    <link href="{{static}}/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="{{static}}/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{{static}}/css/cover.css" rel="stylesheet">
+    <link href="{{static}}/css/starter-template.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
+    integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+    crossorigin=""/>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="site-wrapper">
+
+      <div class="site-wrapper-inner">
+
+        <div class="container">
+            <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="nav navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html">Patrick Noll</a>
+                </div>
+                <div id="navbar" class="collapse navbar-collapse">
+                  <ul class="nav  navbar-nav">
+                    <li><a href="software.html">Software</a></li>
+                    <li><a href="design.html">Mechanical</a></li>
+                    <li class="visible-xs"><a href="#contact">Contact</a></li>
+                  </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+            </nav>
+
+            <div class="inner cover">
+                <div class="starter-template">
+                    <div class="row">
+                        <div class="col-sm-10">
+                          <h3>Latest</h3>
+                          <a href="#signupLanguage"> Second Pull Request merged for Lib.reviews!</a><br>
+                          <a href="#returnToPath"> First Pull Request merged for Lib.reviews!</a><br>
+                          Data transformation started for Bothell OSM Import<br>
+                          <hr>
+                          <h3>Visualizing OSM Edits</h3>
+                          <p>I decided to visualize my contributions to OSM over the last few months
+                          to see what impact I had on the map.</p>
+
+                          <p>After a short search, I found that "last touched" edits could be downloaded from the
+                          overpass API.  This includes all features that haven't been modified after I created/modified them.
+                            Using the Leaflet js library to render the edit data with mapbox streets tiles you end
+                            up with a fairly crowded map of points and ways.</p>
+
+                          <p>So if you've been using OSMAND to navigate in the exotic locales of Lynnwood or Bremerton you've
+                          probably run into some of my work.</p>
+                          <div id="map"></div>
+                        </div>
+                        <div class="col-sm-2 hidden-xs">
+                            <h3>Portfolios</h3>
+                            <a href="software.html" class="thumbnail">
+                            <img class="img-responsive" src="{{static}}/images/Konsole_icon.svg" alt="..." width="45%">
+                            <div class="caption"> <h5>Software</h5></div>
+                            </a>
+                            <a href="design.html" class="thumbnail">
+                            <img class="img-responsive" src="{{static}}/images/GEARS.svg" alt="..." width="55%">
+                            <div class="caption"> <h5>Mech</h5></div>
+                            </a>
+                            <h3>Contact</h3>
+                            <a href="mailto:patricknoll.com@respectmyprivacy.com">Email</a><br>
+                            <a href="https://www.linkedin.com/in/patricknoll">LinkedIn</a><br>
+                            <a href="https://github.com/pnoll1">Github</a><br>
+                            <a href="https://www.openstreetmap.org/user/patrick noll">OpenStreetMap</a><br>
+                        </div>
+                        <div class="col-sm-10" id="returnToPath">
+                          <hr>
+                          <h3>Lib.Reviews Return To Path</h3>
+                          <p>First patch merged for Lib.Reviews! This patch is an ease of use feature for users.  When you follow
+                          a link to a review on lib.reviews and decide to sign in or register from that page, you will now be redirected
+                          back to the review you first visited.</p>
+                          <p>This feature will be very nice to have as lib.reviews grows and users become more likely to enter the site
+                          from a review link.</p>
+                        </div>
+                        <div class="col-sm-10" id="signupLanguage">
+                          <hr>
+                          <h3>Lib.Reviews Signup Language</h3>
+                          <p>Second patch merged for Lib.Reviews! This patch ia a hidden ease of use feature for non-english users.
+                          Users can post links with a signupLanguage query to advertise lib.reviews in any supported language. Say all
+                          your friends speak esperanto, you would send them <a href="https://lib.reviews/register?signupLanguage=eo">lib.reviews/register?signupLanguage=eo</a>
+                          so the website will show up in esperanto without having to search for language drop down.</p>
+                          <p>This should help new users feel like the website is for them instead of an english website that happens to have an interface in their language.</p>
+                        </div>
+                      </div>
+                      <footer class="visible-xs" id="contact">
+                        <h3>Portfolios</h3>
+                        <a href="software.html" class="thumbnail">
+                        <img class="img-responsive" src="images/Konsole_icon.svg" alt="..." width="45%">
+                        <div class="caption"> <h5>Software</h5></div>
+                        </a>
+                        <a href="design.html" class="thumbnail">
+                        <img class="img-responsive" src="images/GEARS.svg" alt="..." width="55%">
+                        <div class="caption"> <h5>Mech</h5></div>
+                        </a>
+                        <h3>Contact</h3>
+                        <a href="mailto:patricknoll.com@respectmyprivacy.com">Email</a><br>
+                        <a href="https://www.linkedin.com/in/patricknoll">LinkedIn</a><br>
+                        <a href="https://github.com/pnoll1">Github</a><br>
+                        <a href="https://www.openstreetmap.org/user/patrick noll">OpenStreetMap</a><br>
+                      </footer>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{{static}}/js/jquery.min.js"></script>
+    <script src="{{static}}/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"
+    integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw=="
+    crossorigin=""></script>
+    <script src="{{static}}/js/map.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="{{static}}/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>
