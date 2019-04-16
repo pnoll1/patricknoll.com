@@ -12,13 +12,13 @@
     <title>Patrick Noll</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{static}}/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <!-- <link href="{{static}}/css/ie10-viewport-bug-workaround.css" rel="stylesheet"> -->
 
     <!-- Custom styles for this template -->
-    <link href="css/starter-template.css" rel="stylesheet">
+    <link href="{{static}}/css/starter-template.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -38,16 +38,16 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Patrick Noll</a>
+          <a class="navbar-brand" href="/">Patrick Noll</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="design.html">Design</a></li>
-            <li><a href="stress analysis.html">Stress Analysis</a></li>
-            <li><a href="3d modeling.html">3D Modeling</a></li>
-				<li class="active"><a href="programming.html">Programming</a></li>
-            <li><a href="work history.html">Work History</a></li>
+            <li><a href="resume">Resume</a></li>
+            <li><a href="design">Design</a></li>
+            <li><a href="stress_analysis">Stress Analysis</a></li>
+            <li><a href="3d_modeling.html">3D Modeling</a></li>
+            <li class="active"><a href="programming.html">Programming</a></li>
+            <li class="visible-xs"><a href="#contact">Contact</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -63,7 +63,7 @@
 				<li>VBA</li>
 				<li>SQL</li>
 				<li>HTML & CSS</li>
-				</ul>        
+				</ul>
         <hr>
         <h2>Crane Capacity Look Up</h2>
 	        <h3>Excel Capacity Look Up</h3>
@@ -78,20 +78,20 @@
 			<h3>Capacity Look Up with GUI</h3>
 				<p>A byproduct of the Excel capacity look up project is the accompanying Qt GUI I created. It reuses the db infrastructure from the excel project
 				and makes the db accessible to all users on all platforms.
-				
-				<img class="img-responsive" src="images/CapLookUpGUI.PNG"></p>
+
+				<img class="img-responsive" src="{{static}}/images/CapLookUpGUI.PNG"></p>
 		<hr>
         <h2>Tally Block Fill</h2>
 
 			<p>Filling tally blocks involved manually copying info from the Excel coversheet to the tally block sheet for each lift then copying that sheet into the
 			vertical views of each lift.</p>
-			  
+
 			<p>I attacked this issue by learning VBA, writing a macro to automatically copy the latest tally block workbook
 			to the job folder, select the correct worksheet(it  varied based on crane configuration), renaming the workbook and filling in the appropriate worksheet.</p>
-			
+
 			<p>The script decreased errors on the drawings which lead to an average of an hour per plan by reducing the number of plans that needed to be redone.</p>
-			
-			<p>The code is available to view on <a href="https://github.com/pnoll1/TallyBlockFill">Github</a>.</p>        
+
+			<p>The code is available to view on <a href="https://github.com/pnoll1/TallyBlockFill">Github</a>.</p>
       </div>
 
     </div><!-- /.container -->
@@ -99,9 +99,9 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="{{static}}/js/jquery.min.js"></script>
+    <script src="{{static}}/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="js/ie10-viewport-bug-workaround.js"></script>
+    <!-- <script src="js/ie10-viewport-bug-workaround.js"></script> -->
   </body>
 </html>

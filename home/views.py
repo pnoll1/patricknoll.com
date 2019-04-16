@@ -1,10 +1,8 @@
 from django.http import HttpResponse, FileResponse
 from django.template import Context,loader
 from django.shortcuts import render
-import psycopg2
 from collections import OrderedDict
 from .models import post, project, position
-import json
 import os
 
 
@@ -27,3 +25,19 @@ def resume(request):
     else:
         context_resume['position'] = position.objects.all()
     return render(request, 'resume.html',context_resume)
+def design(request):
+    context = {}
+    context['static'] = '/static'
+    return render(request, 'design.html', context)
+def stress_analysis(request):
+    context = {}
+    context['static'] = '/static'
+    return render(request, 'stress_analysis.html', context)
+def modeling(request):
+    context = {}
+    context['static'] = '/static'
+    return render(request, '3d_modeling.html', context)
+def programming(request):
+    context = {}
+    context['static'] = '/static'
+    return render(request, 'programming.html', context)

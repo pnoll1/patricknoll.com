@@ -12,13 +12,13 @@
     <title>Patrick Noll</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{static}}/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <!-- <link href="{{static}}/css/ie10-viewport-bug-workaround.css" rel="stylesheet"> -->
 
     <!-- Custom styles for this template -->
-    <link href="css/starter-template.css" rel="stylesheet">
+    <link href="{{static}}/css/starter-template.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -38,16 +38,16 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Patrick Noll</a>
+          <a class="navbar-brand" href="/">Patrick Noll</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="design.html">Design</a></li>
-            <li class="active"><a href="stress analysis.html">Stress Analysis</a></li>
-            <li><a href="3d modeling.html">3D Modeling</a></li>
+            <li><a href="resume">Resume</a></li>
+            <li><a href="design">Design</a></li>
+            <li class="active"><a href="stress_analysis">Stress Analysis</a></li>
+            <li><a href="3d_modeling.html">3D Modeling</a></li>
             <li><a href="programming.html">Programming</a></li>
-            <li><a href="work history.html">Work History</a></li>
+            <li class="visible-xs"><a href="#contact">Contact</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -65,14 +65,14 @@
         <h2>Bar End Weight Fix</h2>
         <p>This part was designed to be 3D printed and press fit into a handlebar to serve as a mounting point for a bar end weight and hand guards on a motor
         cycle.</p>
-        <p>Calculations in Python were used to confirm that a 3D printed ABS part would be a reasonable solution based on stress due to press fit, pull out 
+        <p>Calculations in Python were used to confirm that a 3D printed ABS part would be a reasonable solution based on stress due to press fit, pull out
         force of press fit and strength of threads.</p>
         <p>A simplified 3D model of the part was created and imported into ELMER for meshing and FEA.  The FEA was run as a static linear analysis using standard
-        ABS material properties as no data was available on how 3D printing would affect part strength. The part was loaded by defining the displacement of the 
+        ABS material properties as no data was available on how 3D printing would affect part strength. The part was loaded by defining the displacement of the
         outside surface as the max interference of the press fit.  The results showed that the highest stress in the part was below yield strength, confirming that
         a linear analysis was the correct choice.  The part geometry was iteratively optimized to remove excess material using additional FEA runs as guidance. </p>
 			<p>Analysis results shown in Paraview:<br>
-			<img class="img-responsive" src="images/Screenshot.png" alt=""></p>
+			<img class="img-responsive" src="{{static}}/images/Screenshot.png" alt=""></p>
       </div>
 
     </div><!-- /.container -->
@@ -82,9 +82,9 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="{{static}}/js/jquery.min.js"></script>
+    <script src="{{static}}/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="js/ie10-viewport-bug-workaround.js"></script>
+    <!-- <script src="js/ie10-viewport-bug-workaround.js"></script> -->
   </body>
 </html>
