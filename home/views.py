@@ -3,7 +3,7 @@ from django.template import Context,loader
 from django.shortcuts import render
 import psycopg2
 from collections import OrderedDict
-from .models import post
+from .models import post, project, position
 import json
 import os
 
@@ -21,9 +21,9 @@ def edits(request):
     return FileResponse(open(edits, 'rb'))
 def resume(request):
     context_resume = {}
-    project =   {'name':'patricknoll.com','technologies':'JS','startdate':'20190411','enddate':'20190412', 'responsibilities':'Create responsive portfolio website using bootstrap  framework'}
-    projects = {}
-    projects['patricknoll.com'] = project
     context_resume['static'] = '/static'
-    context_resume['projects'] = projects
+    if request.GET.get('q') == 'software':
+        context_resume['projects'] = project.objects.all()
+    else:
+        context_resume['position'] = position.objects.all()
     return render(request, 'resume.html',context_resume)

@@ -51,146 +51,76 @@
     <!-- content -->
     <div class="container">
         <div class="starter-template">
-        <button type="button">software</button>
-        <button type="button">mechanical</button>
-        {% for key,value in projects.items() %}
+        <a class="btn btn-primary" href="resume?q=software" role="button">software</a>
+        <a class="btn btn-primary" href="resume?q=mechanical" role="button">mechanical</a>
         <div class="panel panel-default">
+        {% for value in projects %}
             <div class="panel panel-heading">
                 <div class="row">
                     <div class="col-sm-6">
                     <h4>{{value.name}}</h4>
                     </div>
                     <div class="col-sm-4">
-                        <h4>{{value.technologies}}</h4>
+                      <h4>
+                      {% for item in value.technologies.all() %}
+                        {{item.item}}
+                      {% endfor %}
+                      </h4>
                     </div>
+                  </div>
                     <div class="row">
                         <div class="col-sm-3 date">
-                        <span class="glyphicon glyphicon-calendar icon"></span>{{value.startdate}}-{{value.enddate}}
+                          {% if value.end_date %}
+                        <span class="glyphicon glyphicon-calendar icon"></span>{{value.start_date.year}}/{{value.start_date.month}}-{{value.end_date.year}}/{{value.end_date.month}}
+                        {% else %}
+                        <span class="glyphicon glyphicon-calendar icon"></span>{{value.start_date.year}}/{{value.start_date.month}}- {{value.end_date|replace(None, 'Present')}}
+                        {% endif %}
                     </div>
                 </div>
             </div>
             <div class="panel-body">
             <ul>
-                <li>{{value.responsibilities}}</li>
+                {% for item in value.responsibilities.all() %}
+                <li>{{item.item}}</li>
+                {% endfor %}
             </ul>
             </div>
-        </div>
-        {% endfor %}
-            <h2>Summary</h2>
-            <ul>
-                <li>Experience analyzing and solving complex problems</li>
-                <li>BS in Mechanical Engineering</li>
-            </ul>
-            <div class="panel panel-default">
-                <div class="panel panel-heading">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <h4>Patricknoll.com</h4>
-                        </div>
-                        <div class="col-sm-4">
-                            <h4>JS, HTML, CSS</h4>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3 date">
-                            <span class="glyphicon glyphicon-calendar icon"></span>5/16-Present
-                        </div>
-                    </div>
-                </div>
-                <div class="panel-body">
-                <ul>
-                    <li>Create responsive portfolio website using bootstrap framework</li>
-                    <li>Interactive map using leaflet.js</li>
-                    <li>Interactive 3D model using Three.js</li>
-                </ul>
-                </div>
-                <div class="panel panel-heading">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <h4>Lib.Reviews</h4>
-                        </div>
-                        <div class="col-sm-4">
-                            <h4>Javascript, Node</h4>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3 date">
-                            <span class="glyphicon glyphicon-calendar icon"></span>3/18-Present
-                        </div>
-                    </div>
-                </div>
-                <div class="panel-body">
-                <ul>
-                    <li>Contribute patches to libre review site written in Node, Express, Handlebars</li>
-                    <li>Implemented returnToPath patch; use query to redirect user after signin</li>
-                    <li>Implementing signupLanguage patch; use optional query to set language</li>
-                </ul>
-                </div>
-                <div class="panel panel-heading">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <h4>MITx 6.00.1x: Intro to Computer Science</h4>
-                        </div>
-                        <div class="col-sm-4">
-                            <h4>Python</h4>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3 date">
-                            <span class="glyphicon glyphicon-calendar icon"></span>12/17-1/18
-                        </div>
-                    </div>
-                </div>
-                <div class="panel-body">
-                    <ul>
-                    <li>Learned fundamentals of computer science using python</li>
-                    <li>Learned basic data structures</li>
-                    </ul>
-                </div>
 
-                <div class="panel panel-heading">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <h4>Mapping on OSM</h4>
-                        </div>
-                        <div class="col-sm-4">
-                            <h4>iD, JOSM</h4>
-                        </div>
+        {% endfor %}
+        {% for value in position %}
+            <div class="panel panel-heading">
+                <div class="row">
+                    <div class="col-sm-6">
+                    <h4>{{value.name}}</h4>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-3 date">
-                            <span class="glyphicon glyphicon-calendar icon"></span>10/17-Present
-                        </div>
+                    <div class="col-sm-4">
+                      <h4>
+                      {% for item in value.company.all() %}
+                        {{item.name}}
+                      {% endfor %}
+                      </h4>
                     </div>
-                </div>
-                <div class="panel-body">
-                    <ul>
-                    <li>Import of city data being planned: <a href='https://wiki.openstreetmap.org/wiki/Bothell_import'> Bothell Import Wiki</a></li>
-                    <li>500+ Changesets<a href='map.html'> Map of edits</a></li>
-                    <li><a href="https://www.openstreetmap.org/user/patrick%20noll">OSM User: Patrick Noll</a></li>
-                </div>
-                <div class="panel panel-heading">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <h4>CapLookUp</h4>
-                        </div>
-                        <div class="col-sm-4">
-                            <h4>Python, SQL</h4>
-                        </div>
-                    </div>
+                  </div>
                     <div class="row">
                         <div class="col-sm-3 date">
-                            <span class="glyphicon glyphicon-calendar icon"></span>2/16-7/16
-                        </div>
+                          {% if value.end_date %}
+                        <span class="glyphicon glyphicon-calendar icon"></span>{{value.start_date.year}}/{{value.start_date.month}}-{{value.end_date.year}}/{{value.end_date.month}}
+                        {% else %}
+                        <span class="glyphicon glyphicon-calendar icon"></span>{{value.start_date.year}}/{{value.start_date.month}}- {{value.end_date|replace(None, 'Present')}}
+                        {% endif %}
                     </div>
                 </div>
-                <div class="panel-body">
-                    <ul>
-                    <li>Created and maintained suite of tools to perform database lookups</li>
-                    <li>Used Excel spreadsheets or Qt Gui for frontend</li>
-                    <li>sqlite for db</li>
-                    </ul>
-                </div>
+            </div>
+            <div class="panel-body">
+            <ul>
+                {% for item in value.responsibilities.all() %}
+                <li>{{item.item}}</li>
+                {% endfor %}
+            </ul>
+            </div>
+
+        {% endfor %}
+        </div>
             </div>
         </div>
     </div>
