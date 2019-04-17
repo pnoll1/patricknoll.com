@@ -3,7 +3,11 @@
  */
 
 /* Links */
-a,
+a{
+  color: #fff;
+  font-weight: bold;
+}
+
 a:focus,
 a:hover {
   color: #fff;
@@ -19,7 +23,9 @@ a:hover {
   border: 1px solid #fff;
 }
 
-
+.iconize{
+  height: 30px;
+}
 /*
  * Base structure
  */
