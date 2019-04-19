@@ -10,13 +10,15 @@ from django.utils.timezone import now
 class post(models.Model):
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     slug = models.SlugField(max_length=50)
-    content = models.TextField()
+    content = models.TextField(blank=True)
     md_content = MarkdownxField(default='')
     date = models.DateField(default= now)
 
     class Meta:
         db_table = 'posts'
         ordering = ['-date']
+    def __str__(self):
+        return self.slug
 
 class technologies(models.Model):
     item = models.TextField()
@@ -34,6 +36,8 @@ class project(models.Model):
     start_date = models.DateField()
     end_date = models.DateField(blank=True, null=True)
     responsibilities = models.ManyToManyField(responsibilities)
+    def __str__(self):
+        return self.name
 
 class company(models.Model):
     name = models.TextField()
@@ -46,3 +50,5 @@ class position(models.Model):
     start_date = models.DateField()
     end_date = models.DateField(blank=True, null=True)
     responsibilities = models.ManyToManyField(responsibilities)
+    def __str__(self):
+        return self.name

@@ -62,6 +62,27 @@
     		<li>Design for Assembly</li>
 		</ul>
         <hr>
+    <h2>
+		<a id="battery-holder-dewalt" class="anchor" href="#battery-holder-dewalt" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Dewalt Battery Holder</h2>
+
+		<p>The product started as solution to the problem of organizing batteries in form that allows quick mounting and easy access. The product started with a customer focus to ensure
+    it added value to the end users. The major way this was achieved was minimizing the work to mount it since competitors were using 3+ screws to mount 1 battery. This meant a thick back was
+    required to direct the load back to mounting points</p>
+
+    <p>Single holder annotated with major design features:<br>
+		<img class="img-responsive" src="{{static}}/images/Isometric View Marked Up.jpg"> </p>
+
+		<p>The part was designed using FreeCAD to create a parametric 3D model while refining the fitment based on prototype prints that were used to check fitment with the batteries.
+      The max stress on the part in all orientations were estimated using hand calcuations. The material properties had to be estimated using data from a Makerbot study on pritned parts to account for the interlaminar strength.
+    </p>
+
+   <p>The product was optimized for 3d printing speed by leaving the back as a box to take advantage of infill speeds being 2.75 times faster than perimeters. The corners in the xy plane were
+     filleted for an additional 10 minute gain. The thin wall portions were improved by leveraging the parametric model so the wall thickness were multiples of
+     the perimeter extrusion width. Modifier meshes in Slic3r were then used to change print characteristics on the target areas only increasing strength, consistency and print speed.
+
+    <p>Results:<br>
+		Dual holders were well liked by customers, but sales numbers were hindered by consistent issues with the 3d printers bought for production. </p>
+		<hr>
 		<h2>
 		<a id="differential-mounts" class="anchor" href="#differential-mounts" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Differential Mounts</h2>
 
