@@ -68,7 +68,7 @@
                           {% for value in posts %}
                           <div class="col-sm-10" id={{value.uuid}}>
                           <hr>
-                          <h3>{{value.slug}}</h3>
+                          <h3>{{value.slug|replace('-',' ')}}</h3>
                           <h5>{{value.date}}</h5>
                           {{ value.md_content|show_markdown|replace('<img ' ,'<img class="img-responsive" ')|safe }}
                           </div>
