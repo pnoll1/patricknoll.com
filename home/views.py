@@ -9,6 +9,8 @@ import os
 def index(request):
     context = {}
     posts = {}
+    if request.GET.get('expand_map') == 'yes':
+        context['expand_map'] = 'yes'
     context['static'] = '/static'
     context['posts'] = post.objects.all()
     return render(request, 'index.html',context)

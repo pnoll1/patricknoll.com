@@ -5,26 +5,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="Patrick Noll's skills showcase">
+    <meta name="description" content="Patrick Noll's blog, resume and portfolio">
     <meta name="keywords" content="OpenStreetMap, osm, software, mechanical, engineer">
     <meta name="author" content="Patrick Noll" >
-    <link rel="icon" href="../../favicon.ico">
+    <link rel="icon" href="{../../favicon.ico}">
 
-    <title>Patrick Noll</title>
+    <title>Patrick Noll Personal Website</title>
     <!-- Bootstrap core CSS -->
     <link href="{{static}}/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="{{static}}/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <!--<link href="{{static}}/css/ie10-viewport-bug-workaround.css" rel="stylesheet"> -->
 
     <!-- Custom styles for this template -->
     <link href="{{static}}/css/cover.css" rel="stylesheet">
     <link href="{{static}}/css/starter-template.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
-    integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
-    crossorigin=""/>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -66,16 +61,30 @@
                 <div class="starter-template">
                     <div class="row">
                           {% for value in posts %}
-                          <div class="col-sm-10" id={{value.uuid}}>
+                          <div class="col-sm-10" id={{value.slug}}>
                           <hr>
                           <h3>{{value.slug|replace('-',' ')}}</h3>
                           <h5>{{value.date}}</h5>
-                          {{ value.md_content|show_markdown|replace('<img ' ,'<img class="img-responsive" ')|safe }}
+                          {{ value.md_content|show_markdown|replace('<img ' , '<img class="img-responsive" ')|safe }}
                           </div>
                           {% if value.slug == 'Visualizing-OSM-Edits' %}
-                          <div id="map" class="col-sm-10"></div>
+
+                          <div id="map" class="col-sm-10"><a class="btn btn-primary" href="?expand_map=yes#{{value.slug}}" role="button">Show Map</a></div>
                           {% endif %}
                           {% endfor %}
+                          {% if expand_map %}
+                          <script src="{{static}}/js/jquery.min.js"></script>
+                          <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
+                          integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+                          crossorigin=""/>
+                          <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css">
+                          <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css">
+                          <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"
+                          integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw=="
+                          crossorigin=""></script>
+                          <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+                          <script src="{{static}}/js/map.js"></script>
+                          {% endif %}
                       <footer id="contact">
                         <h3>Contact</h3>
                         <a  href="mailto:patricknoll.com@respectmyprivacy.com"><span class="glyphicon glyphicon-envelope icon"></span></a>
@@ -95,11 +104,6 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="{{static}}/js/jquery.min.js"></script>
     <script src="{{static}}/js/bootstrap.min.js"></script>
-    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"
-    integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw=="
-    crossorigin=""></script>
-    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
-    <script src="{{static}}/js/map.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <!-- <script src="{{static}}/js/ie10-viewport-bug-workaround.js"></script> -->
   </body>
