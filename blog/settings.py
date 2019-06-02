@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+from blog.secret_stuff import key
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '52n$x#0_ybfx#!4a9e)h&nzrevv17yw9@9%93nczcpp$(o1c(g'
+SECRET_KEY = key
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -82,6 +83,12 @@ WSGI_APPLICATION = 'blog.wsgi.application'
 
 DATABASES = {
     'default': {
+          # 'ENGINE': 'django.db.backends.mysql',
+          # 'NAME': 'default',
+          # 'USER': 'pat',
+          # 'PASSWORD': 'password',
+          # 'HOST': '127.0.0.1',
+          # 'PORT': '3306',
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'blog',
         'USER': 'pat',
