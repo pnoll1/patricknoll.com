@@ -39,3 +39,6 @@ body {
     border-radius: 5px;
     color: #555;
 }
+.glyphicon.glyphicon-envelope {
+    font-size: 30px;
+}
