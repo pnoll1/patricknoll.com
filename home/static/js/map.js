@@ -16,37 +16,39 @@ var mymap = L.map('map', {
     layers: [mapbox]
 });
 
+fetch('edits.geojson')
+.then( res => res.json())
+.then(data => {
+  var ways = L.geoJSON(data,{
+  style: function (feature) {
+      return {};
+  }
+  ,
+  pointToLayer: function (feature) {
+    return false;
+  }
+  });
+  var nodes = L.geoJSON(data,{
+  style: function (feature) {
+      return {stroke:false,fill:false};
+  }
+  });
+  ways.addTo(mymap);
+  var markers = L.markerClusterGroup({disableClusteringAtZoom: 17});
+  markers.addLayer(nodes);
+  mymap.addLayer(markers);
 
-$.getJSON('edits.geojson',function (data) {
-    var ways = L.geoJSON(data,{
-    style: function (feature) {
-        return {};
-    }
-    ,
-    pointToLayer: function (feature) {
-    	return false;
-    }
-    });
-    var nodes = L.geoJSON(data,{
-    style: function (feature) {
-        return {stroke:false,fill:false};
-    }
-    });
-    ways.addTo(mymap);
-    var markers = L.markerClusterGroup({disableClusteringAtZoom: 17});
-    markers.addLayer(nodes);
-    mymap.addLayer(markers);
-
-    var overlays = {
-    "markers": markers,
-    "ways": ways,
-    };
-    featureCount = data.features.length.toString();
-    var controls_layers = L.control.layers(baselayers, overlays);
-    controls_layers.addTo(mymap);
-    legend.addTo(mymap);
-    counter.addTo(mymap);
-});
+  var overlays = {
+  "markers": markers,
+  "ways": ways,
+  };
+  featureCount = data.features.length.toString();
+  var controls_layers = L.control.layers(baselayers, overlays);
+  controls_layers.addTo(mymap);
+  legend.addTo(mymap);
+  counter.addTo(mymap);
+})
+.catch();
 
 var legend = L.control({position: 'bottomright'});
 legend.onAdd = function (mymap) {

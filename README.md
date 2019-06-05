@@ -5,11 +5,13 @@ Personal website with blog and portfolio
 Django for the admin interface that allows easy posting
 
 # Front End
-- Built using Bootstrap 3 for the built-in responsive features
+- Built using Bootstrap 3 native for the built-in responsive features
 - Jinja2 templates
 
 # Javascript
-- Jquery is required by Bootstrap
+- map.js loads leaflet map using ES6 features
+- turnsignal.min.js is mostly auto generated geometry description for webgl 
+model
 - Three.js used to create interactive 3d models
 - leaflet.js is used to create interactive map
 
@@ -20,4 +22,5 @@ Django for the admin interface that allows easy posting
 - all other images are personal and CC BY-SA 4.0 licensed
 
 # Hosting
-Running on shared host with apache proxy setup to serve static files
+- Running on shared host with apache proxy setup to serve static files
+- Gunicorn with async workers handles serverside rendering
