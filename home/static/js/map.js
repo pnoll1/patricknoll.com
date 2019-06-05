@@ -1,3 +1,4 @@
+document.getElementById('map').classList.add('map');
 var baselayers, ways, nodes, controls_layers, mymap, overlays, mapbox, featureCount;
 
 var mapbox = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
