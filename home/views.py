@@ -4,15 +4,19 @@ from django.shortcuts import render
 from collections import OrderedDict
 from .models import post, project, position
 import os
+from django.core.paginator import Paginator
 
-
+#posts = {}
 def index(request):
     context = {}
-    posts = {}
     if request.GET.get('expand_map') == 'yes':
         context['expand_map'] = 'yes'
     context['static'] = '/static'
-    context['posts'] = post.objects.all()
+    page = request.GET.get('page')
+    post_list = post.objects.all()
+    paginator = Paginator(post_list,5)
+    posts = paginator.get_page(page)
+    context['posts'] = posts
     return render(request, 'index.html',context)
 def edits(request):
     # server cant find file without fullpath
