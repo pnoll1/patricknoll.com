@@ -9,11 +9,16 @@ from django.core.paginator import Paginator
 #posts = {}
 def index(request):
     context = {}
+    context['static'] = '/static'
     if request.GET.get('expand_map') == 'yes':
         context['expand_map'] = 'yes'
-    context['static'] = '/static'
+    if request.GET.get('search'):
+        search = request.GET.get('search')
+        print(search)
+        post_list = post.objects.filter(md_content__icontains = search)
+    else:
+        post_list = post.objects.all()
     page = request.GET.get('page')
-    post_list = post.objects.all()
     paginator = Paginator(post_list,5)
     posts = paginator.get_page(page)
     context['posts'] = posts
@@ -23,6 +28,10 @@ def edits(request):
     edits = os.path.join(os.path.dirname(os.path.realpath(__file__)),'static/data.geojson')
     # file only load in binary mode
     return FileResponse(open(edits, 'rb'))
+def services(request):
+    context = {}
+    context['static'] = '/static'
+    return render(request, 'services.html', context)
 def resume(request):
     context_resume = {}
     context_resume['static'] = '/static'

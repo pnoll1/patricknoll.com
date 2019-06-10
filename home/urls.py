@@ -6,6 +6,7 @@ from django.views.generic import TemplateView
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^index', views.index, name='index'),
+    url(r'^services', views.services, name='services'),
     url(r'edits', views.edits, name='edits'),
     url(r'resume', views.resume, name='resume'),
     url(r'^design', views.design, name='design'),

@@ -1,8 +1,16 @@
 body {
   padding-top: 50px;
 }
+hr {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.form-control{
+  width:80%;
+  display: inline;
+}
 .starter-template {
-  padding: 20px 15px;
+  padding: 0px 15px;
   text-align: left;
 }
 .date {
@@ -41,4 +49,12 @@ body {
 }
 .glyphicon.glyphicon-envelope {
     font-size: 30px;
+}
+
+#contact::before {
+  display: block;
+  content: " ";
+  margin-top: -35px;
+  height: 35px;
+  visibility: hidden;
 }
