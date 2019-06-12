@@ -1,0 +1,13 @@
+#! /usr/bin/python3
+import os
+os.system('cd /home/pat/projects/Websites/pnoll1_django')
+try:
+    os.system('. env/bin/activate')
+except:
+    pass
+os.system('cd blog')
+try:
+    os.system('./manage.py runserver &')
+except: 
+    pass
+os.system('./manage.py test')
