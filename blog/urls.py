@@ -20,4 +20,5 @@ urlpatterns = [
     url(r'', include('home.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^markdownx/', include('markdownx.urls')),
+    url(r'', include('downloads.urls')),
 ]

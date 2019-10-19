@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+  {% block description %}
+  <meta name="description" content="Patrick Noll's blog, resume and portfolio">
+  {% endblock %}
+  {% block title %}
+  <title>Patrick Noll Personal Website</title>
+  {% endblock %}
+  {% block css %}
+  <link href="{{static}}/css/starter-template.css" rel="stylesheet">
+  {% endblock %}
+  {% block cover_classes %}
+   {% endblock %}
+
+   {% block search %}
+   {% endblock %}
+   {% block messages %}
+   {% endblock %}
+   {% block content %}
+   <div class="container">
+     <div class="starter-template">
+     <div class="row">
+       <div class="col-xs-12">
+       {% for file in files %}
+       <a href="downloads/static/downloads/{{file}}">{{file}}</a><br> {# needs to be under django to use auth #}
+       {% endfor %}
+       <p>Email patrick@patricknoll.com for issues</p>
+     </div>
+     </div>
+     </div>
+    </div>
+   {% endblock %}
+   {% block cover_classes_close %}
+   {% endblock %}
+   {% block js %}
+   {% endblock %}

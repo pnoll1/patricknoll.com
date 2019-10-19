@@ -3,6 +3,7 @@ from jinja2 import Environment
 from markdownx.utils import markdownify
 from django.contrib import messages
 
+
 def show_markdown(text):
     return markdownify(text)
 

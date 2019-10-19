@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'home',
     'markdownx',
+    'downloads',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -59,7 +60,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.jinja2.Jinja2',
         'DIRS': [],
         'APP_DIRS': True,
-        'OPTIONS': { 'environment': 'home.jinja2.Environment',
+        'OPTIONS': { 'environment': 'home.jinja2.environment',
         },
     },
     {
