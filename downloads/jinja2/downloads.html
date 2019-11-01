@@ -13,17 +13,33 @@
 
    {% block search %}
    {% endblock %}
-   {% block messages %}
-   {% endblock %}
    {% block content %}
    <div class="container">
      <div class="starter-template">
      <div class="row">
        <div class="col-xs-12">
-       {% for file in files %}
-       <a href="downloads/static/downloads/{{file}}">{{file}}</a><br> {# needs to be under django to use auth #}
-       {% endfor %}
+         <div class="panel panel-default">
+           <div class="panel-heading"> Current File List</div>
+           <div class="table-responsive">
+             <table class="table">
+               <tr>
+                 <td>File Name</td>
+                 <td>Last Modified</td>
+                 <td>Size (MB)</td>
+               </tr>
+               {% for file in files %}
+               <tr>
+                 <td><a href="downloads/static/downloads/{{file[0]}}">{{file[0]}}</a></td><td>{{file[1]}}</td><td>{{file[2]}}</td>
+               </tr>
+               {% endfor %}
+             </table>
+         </div>
+       </div>
+       <div class="row">
+         <div class="col-xs-12">
        <p>Email patrick@patricknoll.com for issues</p>
+     </div>
+   </div>
      </div>
      </div>
      </div>

@@ -3,12 +3,16 @@ from django.contrib.auth import authenticate, login, logout, get_user
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.core.exceptions import ValidationError
-from django.http import FileResponse
+from django.http import FileResponse, HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 from .models import *
+from blog.secret_stuff import endpoint_secret, avalara_user, avalara_key
 import datetime
 import os
 import stripe
 import re
+from client import AvataxClient
+import json
 
 def create_checkout_session(request):
     stripe.checkout.Session.create(
@@ -39,22 +43,48 @@ utc = Utc()
 def downloads(request):
     context = {}
     context['static'] = '/static'
-    # check user is logged in and has valid subscription
-    if request.user.is_authenticated and request.user.subscription.end_date > datetime.datetime.now(utc):
-        file_names = os.listdir('./downloads/static/downloads')
-        context['files'] = file_names
+    files = []
+    with os.scandir('./downloads/static/downloads') as dir:
+        for file in dir:
+            modified_time = datetime.datetime.fromtimestamp(file.stat().st_mtime).strftime('%m-%d-%y')
+            size = round(file.stat().st_size * 0.000001, 1)
+            name = file.name
+            files.append([name, modified_time, size])
+    #file_names = os.listdir('./downloads/static/downloads')
+    context['files'] = files
+    if request.user.is_authenticated:
         return render(request, 'downloads.html', context)
     else:
-        return redirect('/login')
+        return redirect('/downloads-ad')
+
+def downloads_ad(request):
+    context = {}
+    context['static'] = '/static'
+    files = []
+    with os.scandir('./downloads/static/downloads') as dir:
+        for file in dir:
+            modified_time = datetime.datetime.fromtimestamp(file.stat().st_mtime).strftime('%m-%d-%y')
+            size = round(file.stat().st_size * 0.000001, 1)
+            name = file.name
+            files.append([name, modified_time, size])
+    #file_names = os.listdir('./downloads/static/downloads')
+    context['files'] = files
+    #file_names = os.listdir('./downloads/static/downloads')
+    #context['files'] = file_names
+    return render(request, 'downloads_ad.html', context)
 
 def serve_downloads(request):
-    if request.user.is_authenticated and request.user.subscription.end_date > datetime.datetime.now(utc):
-        file_name = request.path.split('/')[-1]
-        file_path = os.path.join('downloads/static/downloads/' + file_name)
-        return FileResponse(open(file_path, 'rb'))
+    context = {}
+    context['static'] = '/static'
+    if request.user.is_authenticated:
+        s = subscriptionFix.objects.get(user=request.user.username)
+        if s.end_date > datetime.datetime.now(utc):
+            file_name = request.path.split('/')[-1]
+            file_path = os.path.join('downloads/static/downloads/' + file_name)
+            return FileResponse(open(file_path, 'rb'))
     else:
         messages.error(request, "Must be logged in with valid subscription")
-        return redirect('/')
+        return redirect('/login')
 
 def login_view(request):
     context = {}
@@ -109,73 +139,148 @@ def register(request):
             User.objects.create_user(username=username, email=email, password=password) #, is_active=False
             user = authenticate(username=username, password=password)
             login(request, user)
-            messages.info(request, 'Username reserved, Redirecting to payment')
-            return redirect('/payment')
+            messages.info(request, 'Username reserved')
+            return redirect('/tax')
         messages.error(request, 'Username taken')
     else:
         messages.error(request, 'Fields missing')
     # send confirmation email
     return render(request, 'register.html',context)
 
+def tax(request):
+    if request.user.is_authenticated:
+        context = {}
+        context['static'] = '/static'
+        address = request.POST.get('address')
+        zip = request.POST.get('zip')
+        city = request.POST.get('city')
+        state = request.POST.get('state')
+        if request.method == "GET":
+            return render(request, 'tax.html', context)
+        if request.method == "POST" and address and zip and city and state:
+            client = AvataxClient('downloads',
+                'ver 1.0',
+                'my test machine',
+                'production')
+            client = client.add_credentials(avalara_user, avalara_key)
+
+            tax_document = {
+                 "addresses": {
+                    "shipFrom": {
+                        "line1": "6914 Meadowdale Beach Rd",
+                        "city": "Edmonds",
+                        "region": "WA",
+                        "country": "US",
+                        "postalCode": "98026"
+                    },
+                    "shipTo": {
+                        "line1": address,
+                        "city": city,
+                        "region": state,
+                        "country": "US",
+                        "postalCode": zip
+                    }
+                    },
+                'commit': False,
+                'companyCode': 'DEFAULT',
+                'currencyCode': 'USD',
+                'customerCode': 'TEST',
+                'date': '2017-04-12',
+                'description': 'Yarn',
+                'lines': [{'amount': 10,
+                }],
+                'purchaseOrderNo': '2017-04-12-001',
+                'type': 'SalesInvoice'}
+            transaction_response = client.create_transaction(tax_document)
+            # error handling
+            if 499 >= transaction_response.status_code >= 400:
+                e = json.loads(transaction_response.content)
+                messages.error(request, 'Tax calculation failed. If address is valid, send email patrick@patricknoll.com with details' + e['error']['message'] + e['error']['details'][0]['description'])
+            if 599 >= transaction_response.status_code >= 500:
+                e = json.loads(transaction_response.content)
+                messages.error(request, 'Tax calculation service internal error. Please try again.  If error persits, please email patrick@patricknoll.com with details' + e['error']['message'] + e['error']['details'][0]['description'])
+            # transaction_response.status_code
+            avatax_response = json.loads(transaction_response.content)
+            tax = avatax_response['totalTax']
+            t = transaction.objects.create(user=request.user.username, address=address, zip=zip, city=city, state=state, commit=False, date=datetime.datetime.now(utc),tax=round(float(tax),2))
+            try:
+                t.full_clean()
+            except ValidationError as e:
+                messages.error(request, e)
+                #return(tax_form)
+            t.save()
+            return redirect('/payment')
+        else:
+            messages.error(request, 'Fields missing')
+            return render(request, 'tax.html', context)
+
 def payment(request):
     context = {}
     context['static'] = '/static'
     if request.user.is_authenticated:
-        #session = create_checkout_session(request)
+        t = transaction.objects.get(user=request.user.username)
+        price = 1000
+        # add and convert tax to stripe format
+        tax = int(t.tax*100)
         session = stripe.checkout.Session.create(
-              payment_method_types=['card'],
-              client_reference_id= request.user.username,
-              line_items=[{
+            payment_method_types=['card'],
+            client_reference_id= request.user.username,
+            line_items=[{
                 'name': 'US Maps for OSMAnd',
                 'description': "State Maps for OSMAnd with millions of addresses added, You'll receive updates monthly for the next 12 months",
-                'amount': 1000,
+                'amount': price,
                 'currency': 'usd',
                 'quantity': 1,
-              }],
-              success_url='https://localhost:8002/downloads?session_id={CHECKOUT_SESSION_ID}',
-              cancel_url='https://localhost:8002/downloads',
+                },{
+                'name': 'Tax',
+                'description': "Sales Tax",
+                'amount': tax,
+                'currency': 'usd',
+                'quantity': 1,}
+            ],
+            success_url='http://localhost:8002/downloads?session_id={CHECKOUT_SESSION_ID}',
+            cancel_url='http://localhost:8002/downloads',
             )
         context['CHECKOUT_SESSION_ID'] = session.id
         return render(request, 'payment.html', context)
     else:
         return redirect('/login')
 
-# Using Django
-from django.http import HttpResponse
-from django.views.decorators.csrf import csrf_exempt
-# You can find your endpoint's secret in your webhook settings
-endpoint_secret = 'whsec_...'
 
 @csrf_exempt
 def webhook_view(request):
-  payload = request.body
-  sig_header = request.META['HTTP_STRIPE_SIGNATURE']
-  event = None
+    payload = request.body
+    sig_header = request.META['HTTP_STRIPE_SIGNATURE']
+    event = None
 
-  try:
-    event = stripe.Webhook.construct_event(
-      payload, sig_header, endpoint_secret
-    )
-  except ValueError as e:
-    # Invalid payload
-    return HttpResponse(status=400)
-  except stripe.error.SignatureVerificationError as e:
-    # Invalid signature
-    return HttpResponse(status=400)
+    try:
+        event = stripe.Webhook.construct_event(
+        payload, sig_header, endpoint_secret
+        )
+    except ValueError as e:
+        # Invalid payload
+        print(e)
+        return HttpResponse(status=400)
+    except stripe.error.SignatureVerificationError as e:
+        print(e)
+        # Invalid signature
+        return HttpResponse(status=400)
 
-  # Handle the checkout.session.completed event
-  if event['type'] == 'checkout.session.completed':
-    session = event['data']['object']
+    # Handle the checkout.session.completed event
+    if event['type'] == 'checkout.session.completed':
+        session = event['data']['object']
+        # Fulfill the purchase...
+        def handle_checkout_session(session):
+            t = transaction.objects.get(user=session['client_reference_id'])
+            t.commit = True
+            s = subscriptionFix.objects.create(user=session['client_reference_id'], end_date=datetime.datetime.now(utc) + datetime.timedelta(days=365))
+            try:
+                s.full_clean()
+                t.full_clean()
+            except ValidationError as e:
+                messages.error(request, e)
+            s.save()
+            t.save()
+        handle_checkout_session(session) # doesn't do anything, errors out on download page with user has no subscription
 
-    # Fulfill the purchase...
-    def handle_checkout_session(session):
-        user = User.objects.get(session.client_reference_id)
-        user.subscription.end_date = datetime.datetime.now(utc) + datetime.timedelta(days=365)
-        try:
-            user.full_clean()
-        except ValidationError as e:
-            pass
-        user.save()
-    handle_checkout_session(session)
-
-  return HttpResponse(status=200)
+    return HttpResponse(status=200)

@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+  {% block description %}
+  <meta name="description" content="Patrick Noll's blog, resume and portfolio">
+  {% endblock %}
+  {% block title %}
+  <title>Patrick Noll Personal Website</title>
+  {% endblock %}
+  {% block css %}
+  <link href="{{static}}/css/starter-template.css" rel="stylesheet">
+  {% endblock %}
+  {% block cover_classes %}
+   {% endblock %}
+
+   {% block search %}
+   {% endblock %}
+   {% block content %}
+   <div class="container">
+     <div class="starter-template">
+     <div class="row">
+       <div class="col-xs-12">
+         <h3>OSMAnd Map files supercharged with open address data</h3>
+         <p>For $10 + tax you'll receive monthly updates for 12 months and access
+           to any files I add.</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+         <h3>Counties with full address coverage</h3>
+         <dl>
+           <dt>WA</dt>
+           <dd>
+             Clark
+             King
+             Kitsap
+             Pierce
+             Snohomish
+             Spokane
+             Thurston
+             Whatcom
+           </dd>
+         </dl>
+       </div>
+     </div>
+     <div class="row">
+       <div class="col-sm-12">
+      <div class="panel panel-default">
+        <div class="panel-heading"> Current File List</div>
+        <div class="table-responsive">
+          <table class="table">
+            <tr>
+              <td>File Name</td>
+              <td>Last Modified</td>
+              <td>Size (MB)</td>
+            </tr>
+            {% for file in files %}
+            <tr>
+              <td>{{file[0]}}</td><td>{{file[1]}}</td><td>{{file[2]}}</td>
+            </tr>
+            {% endfor %}
+          </table>
+      </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+       <a href='/register'><button class="pure-button pure-button-primary">Register</button></a>
+       <a href='/login'><button class="pure-button pure-button-primary">Login </button></a>
+       <p>Email patrick@patricknoll.com for questions</p>
+     </div>
+     </div>
+     </div>
+    </div>
+   {% endblock %}
+   {% block cover_classes_close %}
+   {% endblock %}
+   {% block js %}
+   {% endblock %}
