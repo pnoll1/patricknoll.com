@@ -25,18 +25,38 @@
       </div>
       <div class="row">
         <div class="col-xs-12">
-         <h3>Counties with full address coverage</h3>
+         <h3>Areas with full address coverage</h3>
          <dl>
            <dt>WA</dt>
            <dd>
+             City of Kennewick
              Clark
+             Cowlitz
+             Franklin
+             Grant
              King
              Kitsap
              Pierce
+             Skagit
              Snohomish
              Spokane
              Thurston
              Whatcom
+           </dd>
+           <img class="img-responsive" src="{{static}}/images/wa_coverage.png">
+           <dt>ID</dt>
+           <dd>
+             Ada Canyon Kootenai
+           </dd>
+           <dt>OR</dt>
+           <dd>
+             Clackamas
+             Deschutes
+             Jackson
+             Lane
+             Multonomah
+             Marion
+             Washington
            </dd>
          </dl>
        </div>
@@ -44,7 +64,7 @@
      <div class="row">
        <div class="col-sm-12">
       <div class="panel panel-default">
-        <div class="panel-heading"> Current File List</div>
+        <div class="panel-heading"> Current OSMAnd File List</div>
         <div class="table-responsive">
           <table class="table">
             <tr>
@@ -52,7 +72,7 @@
               <td>Last Modified</td>
               <td>Size (MB)</td>
             </tr>
-            {% for file in files %}
+            {% for file in files_obf %}
             <tr>
               <td>{{file[0]}}</td><td>{{file[1]}}</td><td>{{file[2]}}</td>
             </tr>
@@ -62,6 +82,27 @@
       </div>
     </div>
   </div>
+  <div class="row">
+    <div class="col-sm-12">
+   <div class="panel panel-default">
+     <div class="panel-heading"> Current Maps.Me File List</div>
+     <div class="table-responsive">
+       <table class="table">
+         <tr>
+           <td>File Name</td>
+           <td>Last Modified</td>
+           <td>Size (MB)</td>
+         </tr>
+         {% for file in files_mwm %}
+         <tr>
+           <td>{{file[0]}}</td><td>{{file[1]}}</td><td>{{file[2]}}</td>
+         </tr>
+         {% endfor %}
+       </table>
+   </div>
+   </div>
+ </div>
+</div>
   <div class="row">
     <div class="col-xs-12">
        <a href='/register'><button class="pure-button pure-button-primary">Register</button></a>

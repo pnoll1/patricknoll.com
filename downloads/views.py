@@ -13,6 +13,8 @@ import stripe
 import re
 from client import AvataxClient
 import json
+from operator import itemgetter
+from pathlib import Path
 
 def create_checkout_session(request):
     stripe.checkout.Session.create(
@@ -43,15 +45,20 @@ utc = Utc()
 def downloads(request):
     context = {}
     context['static'] = '/static'
-    files = []
-    with os.scandir('./downloads/static/downloads') as dir:
-        for file in dir:
-            modified_time = datetime.datetime.fromtimestamp(file.stat().st_mtime).strftime('%m-%d-%y')
-            size = round(file.stat().st_size * 0.000001, 1)
-            name = file.name
-            files.append([name, modified_time, size])
-    #file_names = os.listdir('./downloads/static/downloads')
-    context['files'] = files
+    files_obf = []
+    files_mwm = []
+    for file in Path('./downloads/static/downloads').iterdir():
+        modified_time = datetime.datetime.fromtimestamp(file.stat().st_mtime).strftime('%m-%d-%y')
+        size = round(file.stat().st_size * 0.000001, 1)
+        name = file.name
+        if file.suffix == '.obf':
+            files_obf.append([name, modified_time, size])
+        if file.suffix == '.mwm':
+            files_mwm.append([name, modified_time, size])
+    files_obf.sort(key=itemgetter(0))
+    files_mwm.sort(key=itemgetter(0))
+    context['files_obf'] = files_obf
+    context['files_mwm'] = files_mwm
     if request.user.is_authenticated:
         return render(request, 'downloads.html', context)
     else:
@@ -60,17 +67,20 @@ def downloads(request):
 def downloads_ad(request):
     context = {}
     context['static'] = '/static'
-    files = []
-    with os.scandir('./downloads/static/downloads') as dir:
-        for file in dir:
-            modified_time = datetime.datetime.fromtimestamp(file.stat().st_mtime).strftime('%m-%d-%y')
-            size = round(file.stat().st_size * 0.000001, 1)
-            name = file.name
-            files.append([name, modified_time, size])
-    #file_names = os.listdir('./downloads/static/downloads')
-    context['files'] = files
-    #file_names = os.listdir('./downloads/static/downloads')
-    #context['files'] = file_names
+    files_obf = []
+    files_mwm = []
+    for file in Path('./downloads/static/downloads').iterdir():
+        modified_time = datetime.datetime.fromtimestamp(file.stat().st_mtime).strftime('%m-%d-%y')
+        size = round(file.stat().st_size * 0.000001, 1)
+        name = file.name
+        if file.suffix == '.obf':
+            files_obf.append([name, modified_time, size])
+        if file.suffix == '.mwm':
+            files_mwm.append([name, modified_time, size])
+    files_obf.sort(key=itemgetter(0))
+    files_mwm.sort(key=itemgetter(0))
+    context['files_obf'] = files_obf
+    context['files_mwm'] = files_mwm
     return render(request, 'downloads_ad.html', context)
 
 def serve_downloads(request):
