@@ -12,7 +12,7 @@ class subscriptionFix(models.Model):
 
 class transaction(models.Model):
     user = models.TextField(default='santa')
-    tax = models.FloatField()
+    tax = models.FloatField(blank=True)
     address = models.TextField()
     zip = models.IntegerField()
     state = models.TextField()

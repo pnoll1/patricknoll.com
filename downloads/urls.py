@@ -13,5 +13,5 @@ urlpatterns = [
     path('register', views.register),
     path('payment', views.payment),
     path('webhooks', views.webhook_view),
-    path('tax', views.tax),
+    # path('tax', views.tax),
 ]

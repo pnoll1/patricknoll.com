@@ -11,25 +11,10 @@ import datetime
 import os
 import stripe
 import re
-from client import AvataxClient
+from avalara import AvataxClient
 import json
 from operator import itemgetter
 from pathlib import Path
-
-def create_checkout_session(request):
-    stripe.checkout.Session.create(
-      payment_method_types=['card'],
-      client_reference_id= request.user.username,
-      line_items=[{
-        'name': 'US Maps for OSMAnd',
-        'description': "State Maps for OSMAnd with millions of addresses added, You'll receive updates monthly for the next 12 months",
-        'amount': 1000,
-        'currency': 'usd',
-        'quantity': 1,
-      }],
-      success_url='http://localhost:8002/downloads?session_id={CHECKOUT_SESSION_ID}',
-      cancel_url='http://localhost:8002/downloads',
-    )
 
 # timezone class
 class Utc(datetime.tzinfo):
@@ -59,7 +44,12 @@ def downloads(request):
     files_mwm.sort(key=itemgetter(0))
     context['files_obf'] = files_obf
     context['files_mwm'] = files_mwm
-    if request.user.is_authenticated:
+    try:
+        s = subscriptionFix.objects.get(user=request.user.username)
+    except TypeError as e:
+        messages.error(request, 'Need valid subscription')
+        return redirect('/downloads-ad')
+    if request.user.is_authenticated and datetime.datetime.now(utc) < s.end_date:
         return render(request, 'downloads.html', context)
     else:
         return redirect('/downloads-ad')
@@ -138,6 +128,7 @@ def register(request):
     if username and email and password and password_confirm:
         if password != password_confirm:
             messages.error(request,"The password fields must match")
+            return render(request, 'register.html',context)
         # user registration handling
         user = User(username=username, email=email, password=password)
         try:
@@ -150,13 +141,13 @@ def register(request):
             user = authenticate(username=username, password=password)
             login(request, user)
             messages.info(request, 'Username reserved')
-            return redirect('/tax')
+            return redirect('/payment')
         messages.error(request, 'Username taken')
     else:
         messages.error(request, 'Fields missing')
     # send confirmation email
     return render(request, 'register.html',context)
-
+'''
 def tax(request):
     if request.user.is_authenticated:
         context = {}
@@ -223,30 +214,26 @@ def tax(request):
         else:
             messages.error(request, 'Fields missing')
             return render(request, 'tax.html', context)
-
+'''
 def payment(request):
     context = {}
     context['static'] = '/static'
     if request.user.is_authenticated:
-        t = transaction.objects.get(user=request.user.username)
+        #t = transaction.objects.get(user=request.user.username)
         price = 1000
         # add and convert tax to stripe format
-        tax = int(t.tax*100)
+        #tax = int(t.tax*100)
         session = stripe.checkout.Session.create(
             payment_method_types=['card'],
             client_reference_id= request.user.username,
+            billing_address_collection='required',
             line_items=[{
                 'name': 'US Maps for OSMAnd',
                 'description': "State Maps for OSMAnd with millions of addresses added, You'll receive updates monthly for the next 12 months",
                 'amount': price,
                 'currency': 'usd',
                 'quantity': 1,
-                },{
-                'name': 'Tax',
-                'description': "Sales Tax",
-                'amount': tax,
-                'currency': 'usd',
-                'quantity': 1,}
+                }
             ],
             success_url='http://localhost:8002/downloads?session_id={CHECKOUT_SESSION_ID}',
             cancel_url='http://localhost:8002/downloads',
@@ -281,16 +268,15 @@ def webhook_view(request):
         session = event['data']['object']
         # Fulfill the purchase...
         def handle_checkout_session(session):
-            t = transaction.objects.get(user=session['client_reference_id'])
-            t.commit = True
             s = subscriptionFix.objects.create(user=session['client_reference_id'], end_date=datetime.datetime.now(utc) + datetime.timedelta(days=365))
             try:
                 s.full_clean()
-                t.full_clean()
+                #t.full_clean()
             except ValidationError as e:
                 messages.error(request, e)
+                return HttpResponse(status=500)
             s.save()
-            t.save()
+            #t.save()
         handle_checkout_session(session) # doesn't do anything, errors out on download page with user has no subscription
 
     return HttpResponse(status=200)
