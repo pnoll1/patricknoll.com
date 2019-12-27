@@ -44,12 +44,15 @@ def downloads(request):
     files_mwm.sort(key=itemgetter(0))
     context['files_obf'] = files_obf
     context['files_mwm'] = files_mwm
+    if not request.user.is_authenticated:
+        return redirect('/downloads-ad')
     try:
         s = subscriptionFix.objects.get(user=request.user.username)
     except TypeError as e:
         messages.error(request, 'Need valid subscription')
         return redirect('/downloads-ad')
     if request.user.is_authenticated and datetime.datetime.now(utc) < s.end_date:
+        messages.error(request, 'Need valid subscription')
         return render(request, 'downloads.html', context)
     else:
         return redirect('/downloads-ad')
