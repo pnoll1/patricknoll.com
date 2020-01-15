@@ -32,10 +32,12 @@ class responsibilities(models.Model):
 
 class project(models.Model):
     name = models.TextField()
+    url = models.URLField(blank=True, null=True)
     technologies = models.ManyToManyField(technologies)
     start_date = models.DateField()
     end_date = models.DateField(blank=True, null=True)
     responsibilities = models.ManyToManyField(responsibilities)
+    current = models.BooleanField(blank=True)
     def __str__(self):
         return self.name
 
@@ -50,5 +52,6 @@ class position(models.Model):
     start_date = models.DateField()
     end_date = models.DateField(blank=True, null=True)
     responsibilities = models.ManyToManyField(responsibilities)
+    current = models.BooleanField(blank=True)
     def __str__(self):
         return self.name

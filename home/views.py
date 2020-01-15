@@ -6,7 +6,6 @@ from .models import post, project, position
 import os
 from django.core.paginator import Paginator
 
-#posts = {}
 def index(request):
     context = {}
     context['static'] = '/static'
@@ -14,7 +13,6 @@ def index(request):
         context['expand_map'] = 'yes'
     if request.GET.get('search'):
         search = request.GET.get('search')
-        print(search)
         post_list = post.objects.filter(md_content__icontains = search)
     else:
         post_list = post.objects.all()
@@ -36,7 +34,7 @@ def resume(request):
     context_resume = {}
     context_resume['static'] = '/static'
     if request.GET.get('q') == 'software':
-        context_resume['projects'] = project.objects.all()
+        context_resume['projects'] = project.objects.all().order_by('-current','end_date')
     else:
         context_resume['position'] = position.objects.all()
     return render(request, 'resume.html',context_resume)
