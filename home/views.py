@@ -34,7 +34,7 @@ def resume(request):
     context_resume = {}
     context_resume['static'] = '/static'
     if request.GET.get('q') == 'software':
-        context_resume['projects'] = project.objects.all().order_by('-current','end_date')
+        context_resume['projects'] = project.objects.all().order_by('-current','-end_date')
     else:
         context_resume['position'] = position.objects.all()
     return render(request, 'resume.html',context_resume)
