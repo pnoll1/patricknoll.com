@@ -13,14 +13,13 @@
   <div class="site-wrapper">
 
     <div class="site-wrapper-inner">
-
    {% endblock %}
    {% block search %}
-   <div class="row">
-     <div class="col-xs-12">
-       <img class="img-responsive pic" src="{{static}}/images/hurricane_ridge.jpg">
-     </div>
-   </div>
+       <div class="row">
+         <div class="col-xs-12">
+           <img class="img-responsive pic" src="{{static}}/images/hurricane_ridge.jpg">
+         </div>
+       </div>
    <form class="navbar-form" role="search">
     <div class="form-group">
       <input name="search" type="text" class="form-control" placeholder="Search Post Text">
@@ -28,70 +27,74 @@
     </div>
    </form>
    {% endblock %}
-   {% block content %} <div class="container" <div class="inner
-   cover"> <div class="starter-template"> <div class="row"> {% for value in
-   posts %} <div class="col-sm-10" id={{value.slug}}> <hr>
-   <h3><a href=#{{value.slug}}>{{value.slug|replace('-',' ')}}</a></h3> <h5>{{value.date}}</h5> {{
-   value.md_content|show_markdown|replace('<img ' , '<img class="img-responsive"
-   ')|safe }} </div> {% if value.slug == 'Visualizing-OpenStreetMap-Edits' %}
-
-                          <div id="map" class="col-sm-10"><a class="btn btn-primary" href="?page={{ posts.number }}&expand_map=yes#{{value.slug}}" role="button">Show Map</a></div>
-                          {% endif %}
-                          {% endfor %}
-                          {% if expand_map %}
-                          <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
-                          integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-                          crossorigin=""
-                          <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css">
-                          <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css">
-                          <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
-                          integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
-                          crossorigin=""></script>
-                          <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
-                          <script src="{{static}}/js/map.js"></script>
-                          <noscript>
-                            This map uses JS
-                          </noscript>
-                          {% endif %}
-                          <div id="contact" class="hidden-xs">
-                            {% block contact %}
-                            <h3>Contact</h3>
-                            <a href="mailto:patrick@patricknoll.com"><span class="glyphicon glyphicon-envelope icon"></span></a>
-                            <a href="https://www.linkedin.com/in/patricknoll"><img class="iconize" src="{{static}}/images/In-2CRev-128px-TM.png"></a>
-                            <a href="https://github.com/pnoll1"><img class="iconize" src="{{static}}/images/GitHub-Mark-Light-120px-plus.png"></a>
-                            <a href="https://www.openstreetmap.org/user/patrick noll"><img class="iconize" src="{{static}}/images/OpenStreetMap logo 2011.svg"></a>
-                            {% endblock %}
-                          </div>
-                          </div>
-                          <div class="pagination">
-                            <span class="step-links">
-                                {% if posts.has_previous() %}
-                                    <a href="?page=1">&laquo; first</a>
-                                    <a href="?page={{ posts.previous_page_number() }}">previous</a>
-                                {% endif %}
-
-                                <span class="current">
-                                    Page {{ posts.number }} of {{ posts.paginator.num_pages }}
-                                </span>
-
-                                {% if posts.has_next() %}
-                                    <a href="?page={{ posts.next_page_number() }}">next</a>
-                                    <a href="?page={{ posts.paginator.num_pages }}">last &raquo;</a>
-                                {% endif %}
-                            </span>
-                        </div>
-                      <footer id="contact" class="visible-xs">
-                        {{self.contact()}}
-                      </footer>
-
-                    </div>
-                </div>
+   {% block content %}
+   <div class="container">
+     <div class="inner cover">
+       <div class="starter-template">
+         <div class="row">
+           {% for value in posts %}
+           <div class="col-sm-10" id={{value.slug}}> <hr>
+             <h3><a href=#{{value.slug}}>{{value.slug|replace('-',' ')}}</a></h3>
+             <h5>{{value.date}}</h5>
+             {{value.md_content|show_markdown|replace('<img ' , '<img class="img-responsive"')|safe }} </div>
+             {% if value.slug == 'Visualizing-OpenStreetMap-Edits' %}
+             <div id="map" class="col-sm-10"><a class="btn btn-primary" href="?page={{ posts.number }}&expand_map=yes#{{value.slug}}" role="button">Show Map</a></div>
+             {% endif %}
+             {% endfor %}
+             {% if expand_map %}
+                <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+                integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+                crossorigin=""
+                <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css">
+                <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css">
+                <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+                integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+                crossorigin=""></script>
+                <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+                <script src="{{static}}/js/map.js"></script>
+                <noscript>
+                  This map uses JS
+                </noscript>
+             {% endif %}
+             <div id="contact" class="hidden-xs">
+                {% block contact %}
+                <h3>Contact</h3>
+                <a href="mailto:patrick@patricknoll.com"><span class="glyphicon glyphicon-envelope icon"></span></a>
+                <a href="https://www.linkedin.com/in/patricknoll"><img class="iconize" src="{{static}}/images/In-2CRev-128px-TM.png"></a>
+                <a href="https://github.com/pnoll1"><img class="iconize" src="{{static}}/images/GitHub-Mark-Light-120px-plus.png"></a>
+                <a href="https://www.openstreetmap.org/user/patrick noll"><img class="iconize" src="{{static}}/images/OpenStreetMap logo 2011.svg"></a>
+                {% endblock %}
               </div>
-          {% endblock %}
+            </div>
+            <div class="pagination">
+              <span class="step-links">
+                  {% if posts.has_previous() %}
+                      <a href="?page=1">&laquo; first</a>
+                      <a href="?page={{ posts.previous_page_number() }}">previous</a>
+                  {% endif %}
+
+                  <span class="current">
+                      Page {{ posts.number }} of {{ posts.paginator.num_pages }}
+                  </span>
+
+                  {% if posts.has_next() %}
+                      <a href="?page={{ posts.next_page_number() }}">next</a>
+                      <a href="?page={{ posts.paginator.num_pages }}">last &raquo;</a>
+                  {% endif %}
+              </span>
+          </div>
+          <footer id="contact" class="visible-xs">
+            {{self.contact()}}
+          </footer>
+
+          </div>
+        </div>
+      </div>
+      {% endblock %}
       {% block cover_classes_close %}
     </div>
   </div>
-      {% endblock %}
-          {% block js %}
+  {% endblock %}
+  {% block js %}
 
-          {% endblock %}
+  {% endblock %}
