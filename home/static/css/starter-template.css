@@ -53,7 +53,9 @@ hr {
 .glyphicon.glyphicon-envelope {
     font-size: 30px;
 }
-
+#contact {
+  padding-left:15px;
+}
 #contact::before {
   display: block;
   content: " ";
