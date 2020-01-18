@@ -17,7 +17,11 @@
    {% block search %}
        <div class="row">
          <div class="col-xs-12">
-           <img class="img-responsive pic" src="{{static}}/images/hurricane_ridge.jpg">
+           <picture>
+             <source srcset="{{static}}/images/hurricane_ridge.jpg" media="(min-width: 700px)">
+             <source srcset="{{static}}/images/hurricane_ridge_cropped.jpg">
+             <img class="img-responsive pic" src="hurricane_ridge.jpg">
+           </picture>
          </div>
        </div>
    <form class="navbar-form" role="search">
