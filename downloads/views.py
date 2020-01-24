@@ -26,13 +26,14 @@ class Utc(datetime.tzinfo):
         return self.__class__._dst
 
 utc = Utc()
-
-def downloads(request):
-    context = {}
-    context['static'] = '/static'
+def list_map_files(directory):
+    '''
+    input directory path as string
+    output alphabetized lists of map files with each file is list of name, modified time and size
+    '''
     files_obf = []
     files_mwm = []
-    for file in Path('./downloads/static/downloads').iterdir():
+    for file in Path(directory).iterdir():
         modified_time = datetime.datetime.fromtimestamp(file.stat().st_mtime).strftime('%m-%d-%y')
         size = round(file.stat().st_size * 0.000001, 1)
         name = file.name
@@ -42,15 +43,24 @@ def downloads(request):
             files_mwm.append([name, modified_time, size])
     files_obf.sort(key=itemgetter(0))
     files_mwm.sort(key=itemgetter(0))
+    return files_obf, files_mwm
+
+def downloads(request):
+    context = {}
+    context['static'] = '/static'
+    files_obf, files_mwm = list_map_files('./downloads/static/downloads')
     context['files_obf'] = files_obf
     context['files_mwm'] = files_mwm
+    # check if user logged in
     if not request.user.is_authenticated:
         return redirect('/downloads-ad')
+    # check for valid subscription
     try:
         s = subscriptionFix.objects.get(user=request.user.username)
     except TypeError as e:
         messages.error(request, 'Need valid subscription')
         return redirect('/downloads-ad')
+    # reject expired subscription
     if request.user.is_authenticated and datetime.datetime.now(utc) < s.end_date:
         messages.error(request, 'Need valid subscription')
         return render(request, 'downloads.html', context)
@@ -60,18 +70,7 @@ def downloads(request):
 def downloads_ad(request):
     context = {}
     context['static'] = '/static'
-    files_obf = []
-    files_mwm = []
-    for file in Path('./downloads/static/downloads').iterdir():
-        modified_time = datetime.datetime.fromtimestamp(file.stat().st_mtime).strftime('%m-%d-%y')
-        size = round(file.stat().st_size * 0.000001, 1)
-        name = file.name
-        if file.suffix == '.obf':
-            files_obf.append([name, modified_time, size])
-        if file.suffix == '.mwm':
-            files_mwm.append([name, modified_time, size])
-    files_obf.sort(key=itemgetter(0))
-    files_mwm.sort(key=itemgetter(0))
+    files_obf, files_mwm = list_map_files('./downloads/static/downloads')
     context['files_obf'] = files_obf
     context['files_mwm'] = files_mwm
     return render(request, 'downloads_ad.html', context)
