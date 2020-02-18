@@ -1,4 +1,4 @@
-from django.http import HttpResponse, FileResponse
+from django.http import HttpResponse, FileResponse, Http404
 from django.template import Context,loader
 from django.shortcuts import render
 from collections import OrderedDict
@@ -25,8 +25,11 @@ def index(request):
 def posts(request, slug):
     context = {}
     context['static'] = '/static'
-    posts = post.objects.filter(slug=slug)
-    context['posts'] = posts
+    try:
+        posts = post.objects.get(slug=slug)
+    except post.DoesNotExist:
+        raise Http404('Post does not exist')
+    context['post'] = posts
     if request.GET.get('expand_map') == 'yes':
         context['expand_map'] = 'yes'
     return render(request, 'post.html', context)

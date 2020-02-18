@@ -36,15 +36,15 @@
      <div class="inner cover">
        <div class="starter-template">
          <div class="row">
-           {% for value in posts %}
-           <div class="col-sm-10" id={{value.slug}}> <hr>
-             <h3><a href={{value.slug}}>{{value.slug|replace('-',' ')}}</a></h3>
-             <h5>{{value.date}}</h5>
-             {{value.md_content|show_markdown|replace('<img ' , '<img class="img-responsive"')|safe }} </div>
-             {% if value.slug == 'Visualizing-OpenStreetMap-Edits' %}
+           {% if post %}
+           <div class="col-sm-10" id={{post.slug}}> <hr>
+             <h3><a href={{post.slug}}>{{post.slug|replace('-',' ')}}</a></h3>
+             <h5>{{post.date}}</h5>
+             {{post.md_content|show_markdown|replace('<img ' , '<img class="img-responsive"')|safe }} </div>
+             {% if post.slug == 'Visualizing-OpenStreetMap-Edits' %}
              <div id="map" class="col-sm-10"><a class="btn btn-primary" href="?expand_map=yes" role="button">Show Map</a></div>
              {% endif %}
-             {% endfor %}
+             {% endif %}
              {% if expand_map %}
                 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
                 integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="

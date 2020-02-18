@@ -13,5 +13,5 @@ urlpatterns = [
     url(r'^stress_analysis', views.stress_analysis, name='stress_analysis'),
     url(r'^3d_modeling', views.modeling, name='3d_modeling'),
     url(r'^programming', views.programming, name='programming'),
-    path('<slug:slug>', views.posts)
+    path('posts/<slug:slug>', views.posts)
 ]
