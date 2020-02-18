@@ -21,6 +21,16 @@ def index(request):
     posts = paginator.get_page(page)
     context['posts'] = posts
     return render(request, 'index.html',context)
+
+def posts(request, slug):
+    context = {}
+    context['static'] = '/static'
+    posts = post.objects.filter(slug=slug)
+    context['posts'] = posts
+    if request.GET.get('expand_map') == 'yes':
+        context['expand_map'] = 'yes'
+    return render(request, 'post.html', context)
+
 def edits(request):
     # server cant find file without fullpath
     edits = os.path.join(os.path.dirname(os.path.realpath(__file__)),'static/data.geojson')
