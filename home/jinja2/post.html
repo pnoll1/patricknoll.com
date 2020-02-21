@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
   {% block description %}
-  <meta name="description" content="Patrick Noll's blog, resume and portfolio">
+  {# <meta name="description" content=""> #}
   {% endblock %}
   {% block title %}
-  <title>Patrick Noll Personal Website</title>
+  <title>{{post.slug|replace('-',' ')}}</title>
   {% endblock %}
   {% block css %}
   <link href="{{static}}/css/cover.css" rel="stylesheet">
