@@ -63,3 +63,8 @@ hr {
   height: 35px;
   visibility: hidden;
 }
+
+#mail {
+  font-size: 35px;
+  padding-bottom: 0px;
+}
