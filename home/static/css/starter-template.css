@@ -5,6 +5,12 @@ hr {
   margin-top: 15px;
   margin-bottom: 15px;
 }
+p {
+  font-size: 18px;
+}
+li {
+  font-size: 18px;
+}
 .form-control{
   width:80%;
   display: inline;
