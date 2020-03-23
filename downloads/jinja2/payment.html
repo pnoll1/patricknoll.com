@@ -13,9 +13,10 @@
    <div class="container">
      <div class="starter-template">
        <script src="https://js.stripe.com/v3/"></script>
+       <script src="{{static}}/js/production_public.js"></script>
        <script>
        var CHECKOUT_SESSION_ID = {{CHECKOUT_SESSION_ID|tojson}};
-       var stripe = Stripe('pk_test_g3ZmWTqOWgTw3FymaBC9tZLU00Bp8Zg8rG');
+       var stripe = Stripe(stripe_pk);
        stripe.redirectToCheckout({
        // Make the id field from the Checkout Session creation API response
        // available to this file, so you can provide it as parameter here
