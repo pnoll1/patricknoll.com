@@ -27,9 +27,11 @@ li {
   }
 .logos{
   height: 100px;
-  margin-bottom: 20px;
+  margin-top: 5px;
+  margin-bottom: 5px;
   padding-left: 0px
 }
+
 .map{
     height:50vh;
     }
@@ -79,3 +81,9 @@ li {
   font-size: 35px;
   padding-bottom: 0px;
 }
+
+@media (min-width: 768px) {
+  .logos{
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
