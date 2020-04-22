@@ -31,7 +31,6 @@
 
  <body>
    {% block cover_classes %}
-
     {% endblock %}
     {% block nav %}
            <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -69,12 +68,10 @@
            </div>
            </nav>
     {% endblock %}
+    <div class="container">
    {% block search %}
    {% endblock %}
    {% block messages %}
-   <div class="container">
-     <div class="row">
-       <div class="col-xs-12">
     {#% if messages %#}
        <ul class="messages">
          {% for message in get_messages(request) %}
@@ -82,13 +79,10 @@
          {% endfor %}
        </ul>
      {#% endif %#}
-   </div>
- </div>
-   </div>
    {% endblock %}
-          {% block content %}
-          {% endblock %}
-
+   {% block content %}
+   {% endblock %}
+   </div>{#container#}
 
  <!-- Bootstrap core JavaScript
  ================================================== -->

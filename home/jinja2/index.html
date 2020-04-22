@@ -10,9 +10,9 @@
   <link href="{{static}}/css/starter-template.css" rel="stylesheet">
   {% endblock %}
   {% block cover_classes %}
-  <div class="site-wrapper">
+  {#<div class="site-wrapper">
 
-    <div class="site-wrapper-inner">
+    <div class="site-wrapper-inner">#}
    {% endblock %}
    {% block search %}
        <div class="row">
@@ -32,8 +32,7 @@
    </form>
    {% endblock %}
    {% block content %}
-   <div class="container">
-     <div class="inner cover">
+     {#}<div class="inner cover">#}
        <div class="starter-template">
          <div class="row">
            {% for post in posts %}
@@ -48,7 +47,7 @@
              {% if expand_map %}
                 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
                 integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-                crossorigin=""
+			   crossorigin="">
                 <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css">
                 <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css">
                 <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
@@ -87,15 +86,12 @@
                   {% endif %}
               </span>
           </div>
-
-
           </div>
-        </div>
-      </div>
+        {#</div>#}
       {% endblock %}
       {% block cover_classes_close %}
-    </div>
-  </div>
+{#    </div>
+</div>#}
   {% endblock %}
   {% block js %}
 
