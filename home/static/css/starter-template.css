@@ -15,17 +15,10 @@ li {
   width:80%;
   display: inline;
 }
-.starter-template {
-  padding: 0px 15px;
-  text-align: left;
-}
 .date {
   font-size: 120%;
   }
-.icon{
-  margin-right: 1.0rem;
-  top: 0px;
-  }
+
 .iconize{
   height: 40px;
   margin-top: 1rem;
@@ -38,7 +31,6 @@ li {
   margin-bottom: 5px;
   padding-left: 0px
 }
-
 .map{
     height:50vh;
     }
@@ -76,7 +68,6 @@ li {
 .search{
   margin-top:1rem;
 }
-
 
 #contact::before {
   display: block;
