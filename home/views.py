@@ -1,6 +1,7 @@
 from django.http import HttpResponse, FileResponse, Http404
 from django.template import Context,loader
 from django.shortcuts import render
+from django.contrib import messages
 from collections import OrderedDict
 from .models import post, project, position
 import os
@@ -21,6 +22,11 @@ def index(request):
     posts = paginator.get_page(page)
     context['posts'] = posts
     return render(request, 'index.html',context)
+
+def contact(request):
+    context = {}
+    context['static'] = '/static'
+    return render(request, 'contact.html', context)
 
 def posts(request, slug):
     context = {}

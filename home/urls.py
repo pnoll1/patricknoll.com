@@ -13,5 +13,6 @@ urlpatterns = [
     url(r'^stress_analysis', views.stress_analysis, name='stress_analysis'),
     url(r'^3d_modeling', views.modeling, name='3d_modeling'),
     url(r'^programming', views.programming, name='programming'),
+    url(r'^contact', views.contact, name='contact'),
     path('posts/<slug:slug>', views.posts)
 ]
