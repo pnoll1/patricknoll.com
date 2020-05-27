@@ -17,7 +17,7 @@ var mymap = L.map('map', {
     layers: [mapbox]
 });
 
-fetch('edits.geojson')
+fetch('edits')
 .then( res => res.json())
 .then(data => {
   var ways = L.geoJSON(data,{

@@ -6,6 +6,7 @@ from collections import OrderedDict
 from .models import post, project, position
 import os
 from django.core.paginator import Paginator
+from pathlib import Path
 
 def index(request):
     context = {}
@@ -42,7 +43,7 @@ def posts(request, slug):
 
 def edits(request):
     # server cant find file without fullpath
-    edits = os.path.join(os.path.dirname(os.path.realpath(__file__)),'static/data.geojson')
+    edits = os.path.join(Path(__file__).parents[1],Path('static/data.geojson'))
     # file only load in binary mode
     return FileResponse(open(edits, 'rb'))
 def services(request):
