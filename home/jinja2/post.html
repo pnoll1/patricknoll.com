@@ -14,23 +14,34 @@
 
     <div class="site-wrapper-inner">
    {% endblock %}
+   {% block photo %}
+   <div class="row">
+     <div class="col-xs-12">
+       <picture>
+         <source srcset="{{static}}/images/hurricane_ridge.jpg" media="(min-width: 700px)">
+         <source srcset="{{static}}/images/hurricane_ridge_cropped.jpg">
+         <img class="img-responsive pic" src="hurricane_ridge.jpg">
+       </picture>
+     </div>
+   </div>
+   {% endblock %}
    {% block search %}
-       <div class="row">
-         <div class="col-xs-12">
-           <picture>
-             <source srcset="{{static}}/images/hurricane_ridge.jpg" media="(min-width: 700px)">
-             <source srcset="{{static}}/images/hurricane_ridge_cropped.jpg">
-             <img class="img-responsive pic" src="hurricane_ridge.jpg">
-           </picture>
-         </div>
-       </div>
-   <form class="navbar-form" role="search">
-    <div class="form-group">
+       <div class="row search">
+         <div class="col-md-6">
       <input name="search" type="text" class="form-control" placeholder="Search Post Text">
       <button type="submit" class="btn btn-default">Go</button>
     </div>
-   </form>
    {% endblock %}
+
+     {% block contact %}
+      <div id="contact" class="col-md-4">
+      <a href="mailto:patrick@patricknoll.com"><img class="iconize" src={{static}}/images/mail.svg></a>
+      <a href="https://www.linkedin.com/in/patricknoll"><img class="iconize" src="{{static}}/images/In-2CRev-128px-TM.png"></a>
+      <a href="https://github.com/pnoll1"><img class="iconize" src="{{static}}/images/GitHub-Mark-Light-120px-plus.png"></a>
+      <a href="https://www.openstreetmap.org/user/patrick noll"><img class="iconize" src="{{static}}/images/OpenStreetMap logo 2011.svg"></a>
+      </div>
+    </div>
+      {% endblock %}
    {% block content %}
    <div class="container">
      <div class="inner cover">
@@ -59,15 +70,7 @@
                 <noscript>
                   This map uses JS
                 </noscript>
-             {% endif %}
-             <div id="contact">
-                {% block contact %}
-                <h3>Contact</h3>
-                <a href="mailto:patrick@patricknoll.com"><span class="glyphicon glyphicon-envelope icon"></span></a>
-                <a href="https://www.linkedin.com/in/patricknoll"><img class="iconize" src="{{static}}/images/In-2CRev-128px-TM.png"></a>
-                <a href="https://github.com/pnoll1"><img class="iconize" src="{{static}}/images/GitHub-Mark-Light-120px-plus.png"></a>
-                <a href="https://www.openstreetmap.org/user/patrick noll"><img class="iconize" src="{{static}}/images/OpenStreetMap logo 2011.svg"></a>
-                {% endblock %}
+             {% endif %}             
               </div>
             </div>
           </div>
