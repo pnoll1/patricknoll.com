@@ -57,7 +57,7 @@ def downloads(request):
     # check for valid subscription
     try:
         s = subscriptionFix.objects.get(user=request.user.username)
-    except TypeError as e:
+    except Exception as e:
         messages.error(request, 'Need valid subscription')
         return redirect('/downloads-ad')
     # reject expired subscription
