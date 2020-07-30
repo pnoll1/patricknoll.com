@@ -23,6 +23,11 @@ li {
   font-size: 120%;
   }
 
+.header_button {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
 .iconize{
   height: 40px;
   margin-top: 1rem;
