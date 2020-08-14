@@ -10,7 +10,6 @@ from django.utils.timezone import now
 class post(models.Model):
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     slug = models.SlugField(max_length=50)
-    content = models.TextField(blank=True)
     md_content = MarkdownxField(default='')
     date = models.DateField(default= now)
 

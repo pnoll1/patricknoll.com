@@ -11,6 +11,22 @@ p {
 li {
   font-size: 18px;
 }
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+th {
+  background: 0 0;
+  font-size: 14px;
+}
+td {
+  vertical-align: top;
+  font-size: 14px;
+}
+th, td {
+  border-bottom: 1px solid #ddd;
+  padding: 15px;
+}
 .starter-template {
   padding: 0px 15px;
   text-align: left;
