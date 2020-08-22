@@ -34,7 +34,6 @@ ALLOWED_HOSTS = allowed_hosts
 INSTALLED_APPS = [
     'home',
     'markdownx',
-    'downloads',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
