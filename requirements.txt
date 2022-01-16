@@ -1,0 +1,5 @@
+django>3.0,<4.0
+psycopg2
+jinja2
+django-markdownx
+pylibmc
