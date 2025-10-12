@@ -46,10 +46,6 @@ def edits(request):
     edits = os.path.join(Path(__file__).parents[1],Path('static/data.geojson'))
     # file only load in binary mode
     return FileResponse(open(edits, 'rb'))
-def services(request):
-    context = {}
-    context['static'] = '/static'
-    return render(request, 'services.html', context)
 def resume(request):
     context_resume = {}
     context_resume['static'] = '/static'
