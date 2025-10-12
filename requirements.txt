@@ -1,5 +1,5 @@
-django>3.0,<4.0
-psycopg2
+django>5.0,<6.0
+psycopg
 jinja2
 django-markdownx
 pylibmc
