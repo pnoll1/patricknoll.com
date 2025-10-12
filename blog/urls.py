@@ -1,4 +1,4 @@
-from django.re_paths import re_path, include
+from django.urls import re_path, include
 from django.contrib import admin
 
 urlpatterns = [
